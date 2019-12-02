@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">CollapseRecycler</string>
+    <string name="next">Next</string>
+    <string name="phone">Phone</string>
+    <string name="name">Name</string>
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.1">
+
+
+    <TextView
+        android:id="@+id/tvGroupName"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="1dp"
+        android:layout_weight="1"
+        android:background="@color/colorGroupBackground"
+        android:textColor="@color/colorGroupText"
+        android:gravity="start|center"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        tools:text="Group"
+        android:textStyle="bold" />
+
+    <CheckBox
+        android:id="@+id/cbCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="1dp"
+        android:background="@color/colorGroupBackground" />
+</LinearLayout>
