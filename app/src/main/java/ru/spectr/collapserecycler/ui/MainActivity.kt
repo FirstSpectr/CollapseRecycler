@@ -8,6 +8,7 @@ import ru.spectr.collapserecycler.R
 
 
 class MainActivity : AppCompatActivity(), MainActivityView {
+    //TODO: inject fields
     private val presenter = MainActivityPresenter()
     private val adapter = CollapseAdapter()
 
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         adapter.onContactSelected = presenter::onContactSelected
         adapter.onSubGroupSelected = presenter::onSubGroupSelected
         adapter.onGroupSelected = presenter::onGroupSelected
+        btNext.setOnClickListener{ presenter.onNextButtonClick() }
     }
 
     override fun setContacts(groups: List<Group>) {

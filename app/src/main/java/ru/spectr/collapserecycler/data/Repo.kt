@@ -1,29 +1,62 @@
 package ru.spectr.collapserecycler.data
 
-import ru.spectr.collapserecycler.data.entity.Group
-import ru.spectr.collapserecycler.data.entity.SubGroup
 import ru.spectr.collapserecycler.data.entity.Contact
-import kotlin.random.Random
+import ru.spectr.collapserecycler.data.entity.Group
+import ru.spectr.collapserecycler.generateNetworkData
 
 class Repo {
-    private val N = 3
-    fun getGroups(): List<Group> {
-        return generateData()
+    fun getGroups(): List<ru.spectr.collapserecycler.ui.Group> {
+        return mapToViewModel(generateNetworkData())
     }
 
-    private fun generateData(): List<Group>{
-        val random = Random(System.currentTimeMillis())
-        val groups = ArrayList<Group>()
-        for (i in 0..N) {
-            val subGroups = ArrayList<SubGroup>()
-            for (j in 0..N) {
-                val users = ArrayList<Contact>()
-                for (k in 0..N)
-                    users.add(Contact(random.nextInt(),"$i - $j - $k", k.toString()))
-                subGroups.add(SubGroup(random.nextInt(), "$i - $j", users))
+    private fun mapToViewModel(networkGroups: List<Group>): List<ru.spectr.collapserecycler.ui.Group> {
+        val groups = mutableListOf<ru.spectr.collapserecycler.ui.Group>()
+        for (group in networkGroups) {
+            val subGroups = mutableListOf<ru.spectr.collapserecycler.ui.SubGroup>()
+            for (subgroup in group.subGroups) {
+                val contacts = mutableListOf<ru.spectr.collapserecycler.ui.Contact>()
+                for (contact in subgroup.contacts) {
+                    contacts.add(
+                        ru.spectr.collapserecycler.ui.Contact(
+                            contact.id,
+                            contact.userName,
+                            contact.userPhone
+                        )
+                    )
+                }
+                subGroups.add(
+                    ru.spectr.collapserecycler.ui.SubGroup(
+                        subgroup.id,
+                        subgroup.name,
+                        contacts
+                    )
+                )
             }
-            groups.add(Group(random.nextInt(), "$i", subGroups))
+            groups.add(ru.spectr.collapserecycler.ui.Group(group.id, group.name, subGroups))
         }
         return groups
+    }
+
+//    private fun mapToNetworkModel(uiGroups: List<ru.spectr.collapserecycler.ui.Group>): List<Group> {
+//        val groups = mutableListOf<Group>()
+//        for (group in uiGroups) {
+//            val subGroups = mutableListOf<SubGroup>()
+//            for (subgroup in group.subGroups) {
+//                val contacts = mutableListOf<Contact>()
+//                for (contact in subgroup.contacts)
+//                    contacts.add(Contact(contact.id, contact.name, contact.phone))
+//                subGroups.add(SubGroup(subgroup.id, subgroup.name, contacts))
+//            }
+//            groups.add(Group(group.id, group.name, subGroups))
+//        }
+//        return groups
+//    }
+
+    fun saveContacts(uiContacts :List<ru.spectr.collapserecycler.ui.Contact>){
+        val networkContacts = mutableListOf<Contact>()
+        for(contact in uiContacts)
+            networkContacts.add(Contact(contact.id, contact.name, contact.phone))
+
+        //TODO: Api.saveContacts(networkContacts)
     }
 }

@@ -1,10 +1,10 @@
 package ru.spectr.collapserecycler.ui
 
-sealed class RecyclerElement(val name: String, open var isChecked: Boolean = false)
+sealed class RecyclerElement(val id: Int, val name: String, open var isChecked: Boolean = false)
 
 
-class Group(name: String, var isExpanded: Boolean, val subGroups: List<SubGroup>) :
-    RecyclerElement(name) {
+class Group(id: Int, name: String, val subGroups: List<SubGroup>, var isExpanded: Boolean = true) :
+    RecyclerElement(id, name) {
     fun setAllChecked(checked: Boolean) {
         isChecked = checked
         subGroups.map {
@@ -13,7 +13,7 @@ class Group(name: String, var isExpanded: Boolean, val subGroups: List<SubGroup>
         }
     }
 
-    fun expandableElements(): Int {
+    fun expandableElementsCount(): Int {
         var count = subGroups.size
         for (subGroup in subGroups)
             if (subGroup.isExpanded)
@@ -29,8 +29,8 @@ class Group(name: String, var isExpanded: Boolean, val subGroups: List<SubGroup>
     }
 }
 
-class SubGroup(name: String, var isExpanded: Boolean, val contacts: MutableList<Contact>) :
-    RecyclerElement(name) {
+class SubGroup(id: Int, name: String, val contacts: MutableList<Contact>, var isExpanded: Boolean = true) :
+    RecyclerElement(id, name) {
     fun setAllChecked(checked: Boolean) {
         isChecked = checked
         contacts.map { it.isChecked = checked }
@@ -44,4 +44,4 @@ class SubGroup(name: String, var isExpanded: Boolean, val contacts: MutableList<
     }
 }
 
-class Contact(name: String, val phone: String) : RecyclerElement(name)
+class Contact(id:Int, name: String, val phone: String) : RecyclerElement(id, name)

@@ -1,17 +1,36 @@
 package ru.spectr.collapserecycler.ui
 
-import ru.spectr.collapserecycler.generateTestData
+import ru.spectr.collapserecycler.data.Repo
 
 class MainActivityPresenter {
+    //Todo inject
+    private val repo = Repo()
+
     private lateinit var view: MainActivityView
-    private val groups: List<Group> = generateTestData()
+    private lateinit var groups: List<Group>
 
     private var nameSortByDesc = false
     private var phoneSortByDesc = false
 
     fun attach(view: MainActivityView) {
         this.view = view
+        groups = repo.getGroups()
         view.setContacts(groups)
+    }
+
+    private fun getSelected(): List<Contact>{
+        val selectedContacts = mutableListOf<Contact>()
+        for(group in groups){
+            for(subgroup in group.subGroups)
+                for(contact in subgroup.contacts)
+                    if(contact.isChecked)
+                        selectedContacts.add(contact)
+        }
+        return selectedContacts
+    }
+
+    fun onNextButtonClick(){
+        repo.saveContacts(getSelected())
     }
 
     fun onContactNameClick() {

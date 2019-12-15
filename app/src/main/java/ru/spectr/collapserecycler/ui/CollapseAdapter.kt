@@ -44,21 +44,25 @@ class CollapseAdapter : RecyclerView.Adapter<CollapseAdapter.ViewHolder>() {
         private const val TYPE_CONTACT = 2
     }
 
-    fun updateElement(element: RecyclerElement){
+    fun updateElement(element: RecyclerElement) {
         val pos = recyclerModel.indexOf(element)
-        if(pos != -1)
+        if (pos != -1)
             notifyItemChanged(pos)
     }
 
     open inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val checkBox: CheckBox = itemView.findViewById(R.id.cbCheck)
+
         init {
             checkBox.setOnClickListener {
                 when (val element = recyclerModel[adapterPosition]) {
                     is Group -> {
                         element.setAllChecked(checkBox.isChecked)
                         if (element.isExpanded)
-                            notifyItemRangeChanged(adapterPosition + 1,  element.expandableElements())
+                            notifyItemRangeChanged(
+                                adapterPosition + 1,
+                                element.expandableElementsCount()
+                            )
                         if (::onGroupSelected.isInitialized)
                             onGroupSelected(element)
                     }
@@ -93,9 +97,9 @@ class CollapseAdapter : RecyclerView.Adapter<CollapseAdapter.ViewHolder>() {
                 generateModel()
 
                 if (group.isExpanded)
-                    notifyItemRangeInserted(adapterPosition + 1, group.expandableElements())
+                    notifyItemRangeInserted(adapterPosition + 1, group.expandableElementsCount())
                 else
-                    notifyItemRangeRemoved(adapterPosition + 1, group.expandableElements())
+                    notifyItemRangeRemoved(adapterPosition + 1, group.expandableElementsCount())
 
                 notifyItemChanged(adapterPosition)
             }
