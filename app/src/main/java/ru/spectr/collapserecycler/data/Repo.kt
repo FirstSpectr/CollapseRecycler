@@ -37,24 +37,9 @@ class Repo {
         return groups
     }
 
-//    private fun mapToNetworkModel(uiGroups: List<ru.spectr.collapserecycler.ui.Group>): List<Group> {
-//        val groups = mutableListOf<Group>()
-//        for (group in uiGroups) {
-//            val subGroups = mutableListOf<SubGroup>()
-//            for (subgroup in group.subGroups) {
-//                val contacts = mutableListOf<Contact>()
-//                for (contact in subgroup.contacts)
-//                    contacts.add(Contact(contact.id, contact.name, contact.phone))
-//                subGroups.add(SubGroup(subgroup.id, subgroup.name, contacts))
-//            }
-//            groups.add(Group(group.id, group.name, subGroups))
-//        }
-//        return groups
-//    }
-
-    fun saveContacts(uiContacts :List<ru.spectr.collapserecycler.ui.Contact>){
+    fun saveContacts(uiContacts: List<ru.spectr.collapserecycler.ui.Contact>) {
         val networkContacts = mutableListOf<Contact>()
-        for(contact in uiContacts)
+        for (contact in uiContacts)
             networkContacts.add(Contact(contact.id, contact.name, contact.phone))
 
         //TODO: Api.saveContacts(networkContacts)

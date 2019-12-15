@@ -143,12 +143,6 @@ class CollapseAdapter : RecyclerView.Adapter<CollapseAdapter.ViewHolder>() {
     }
 
     inner class ContactHolder(itemView: View) : ViewHolder(itemView) {
-//        init {
-//            itemView.cbContactCheck.setOnClickListener{
-//                data[adapterPosition].isChecked = !data[adapterPosition].isChecked
-//            }
-//        }
-
         fun setContactPhone(phone: String) {
             itemView.tvContactPhone.text = phone
         }

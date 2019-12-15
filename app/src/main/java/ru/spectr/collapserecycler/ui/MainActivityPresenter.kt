@@ -1,5 +1,6 @@
 package ru.spectr.collapserecycler.ui
 
+import android.util.Log
 import ru.spectr.collapserecycler.data.Repo
 
 class MainActivityPresenter {
@@ -18,18 +19,18 @@ class MainActivityPresenter {
         view.setContacts(groups)
     }
 
-    private fun getSelected(): List<Contact>{
+    private fun getSelected(): List<Contact> {
         val selectedContacts = mutableListOf<Contact>()
-        for(group in groups){
-            for(subgroup in group.subGroups)
-                for(contact in subgroup.contacts)
-                    if(contact.isChecked)
+        for (group in groups) {
+            for (subgroup in group.subGroups)
+                for (contact in subgroup.contacts)
+                    if (contact.isChecked)
                         selectedContacts.add(contact)
         }
         return selectedContacts
     }
 
-    fun onNextButtonClick(){
+    fun onNextButtonClick() {
         repo.saveContacts(getSelected())
     }
 
@@ -78,6 +79,7 @@ class MainActivityPresenter {
 
     fun onGroupSelected(group: Group) {
         onSomethingSelected()
+        Log.d("MY_TAG", "GROUP SELECTED ${group.name}")
     }
 
     private fun onSomethingSelected() {

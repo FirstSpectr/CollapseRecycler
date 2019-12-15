@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
         adapter.onContactSelected = presenter::onContactSelected
         adapter.onSubGroupSelected = presenter::onSubGroupSelected
         adapter.onGroupSelected = presenter::onGroupSelected
-        btNext.setOnClickListener{ presenter.onNextButtonClick() }
+        btNext.setOnClickListener { presenter.onNextButtonClick() }
     }
 
     override fun setContacts(groups: List<Group>) {
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), MainActivityView {
     }
 
     override fun showNextButton(show: Boolean) {
-        btNext.visibility = if(show) View.VISIBLE else View.GONE
+        btNext.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     override fun updateElement(element: RecyclerElement) {

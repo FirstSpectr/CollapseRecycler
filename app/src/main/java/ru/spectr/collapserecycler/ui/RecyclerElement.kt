@@ -29,7 +29,12 @@ class Group(id: Int, name: String, val subGroups: List<SubGroup>, var isExpanded
     }
 }
 
-class SubGroup(id: Int, name: String, val contacts: MutableList<Contact>, var isExpanded: Boolean = true) :
+class SubGroup(
+    id: Int,
+    name: String,
+    val contacts: MutableList<Contact>,
+    var isExpanded: Boolean = true
+) :
     RecyclerElement(id, name) {
     fun setAllChecked(checked: Boolean) {
         isChecked = checked
@@ -44,4 +49,4 @@ class SubGroup(id: Int, name: String, val contacts: MutableList<Contact>, var is
     }
 }
 
-class Contact(id:Int, name: String, val phone: String) : RecyclerElement(id, name)
+class Contact(id: Int, name: String, val phone: String) : RecyclerElement(id, name)
